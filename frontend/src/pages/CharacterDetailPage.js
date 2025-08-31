@@ -95,7 +95,7 @@ const CharacterDetailPage = () => {
       <div className="character-header card">
         <div style={{ display: 'flex', gap: '2rem', alignItems: 'flex-start' }}>
           <img
-            src={character.image_url || `http://localhost:3001/api/characters/placeholder-avatar/${encodeURIComponent(character.name)}`}
+            src={character.image_url ? `http://localhost:3001${character.image_url}` : `http://localhost:3001/api/characters/placeholder-avatar/${encodeURIComponent(character.name)}`}
             alt={character.name}
             style={{
               width: '150px',

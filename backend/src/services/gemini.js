@@ -89,14 +89,14 @@ Keep it under 200 words and make it vivid and specific.
 
       // For MVP, we'll store this description and use a placeholder image
       return {
-        imageUrl: '/api/placeholder-avatar/' + encodeURIComponent(characterProfile.name),
+        imageUrl: '/api/characters/placeholder-avatar/' + encodeURIComponent(characterProfile.name),
         imageDescription: imageDescription
       };
 
     } catch (error) {
       console.error('Image generation error:', error);
       return {
-        imageUrl: '/api/placeholder-avatar/default',
+        imageUrl: '/api/characters/placeholder-avatar/default',
         imageDescription: 'Default character avatar'
       };
     }
