@@ -1,5 +1,7 @@
 const express = require('express');
 const router = express.Router();
+const path = require('path');
+const fs = require('fs');
 const { query } = require('../utils/database');
 const WikipediaService = require('../services/wikipedia');
 const geminiService = require('../services/gemini');
@@ -112,6 +114,44 @@ router.post('/create', async (req, res) => {
       error: 'Failed to create character',
       details: process.env.NODE_ENV === 'development' ? error.message : undefined
     });
+  }
+});
+
+// Serve generated character images
+router.get('/images/:fileName', (req, res) => {
+  try {
+    const fileName = req.params.fileName;
+    const imagesDir = path.join(process.cwd(), 'generated_images');
+    const filePath = path.join(imagesDir, fileName);
+    
+    // Security check - ensure file is within images directory
+    if (!filePath.startsWith(imagesDir)) {
+      return res.status(403).json({ error: 'Invalid file path' });
+    }
+    
+    // Check if file exists
+    if (!fs.existsSync(filePath)) {
+      return res.status(404).json({ error: 'Image not found' });
+    }
+    
+    // Set appropriate headers and send file
+    const ext = path.extname(fileName).toLowerCase();
+    const mimeTypes = {
+      '.png': 'image/png',
+      '.jpg': 'image/jpeg',
+      '.jpeg': 'image/jpeg',
+      '.gif': 'image/gif',
+      '.webp': 'image/webp'
+    };
+    
+    const contentType = mimeTypes[ext] || 'image/png';
+    res.setHeader('Content-Type', contentType);
+    res.setHeader('Cache-Control', 'public, max-age=31536000'); // Cache for 1 year
+    
+    res.sendFile(filePath);
+  } catch (error) {
+    console.error('Error serving image:', error);
+    res.status(500).json({ error: 'Failed to serve image' });
   }
 });
 
