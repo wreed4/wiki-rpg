@@ -6,6 +6,7 @@ const helmet = require('helmet');
 const charactersRouter = require('./routes/characters');
 const chatRouter = require('./routes/chat');
 const validateInviteKey = require('./middleware/inviteAuth');
+const { runMigrations } = require('./utils/database');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -40,6 +41,18 @@ app.use((err, req, res, next) => {
   });
 });
 
-app.listen(PORT, '0.0.0.0', () => {
-  console.log(`Wiki RPG Backend running on port ${PORT}`);
-});
+const startServer = async () => {
+  try {
+    // Run database migrations before starting the server
+    await runMigrations();
+    
+    app.listen(PORT, '0.0.0.0', () => {
+      console.log(`Wiki RPG Backend running on port ${PORT}`);
+    });
+  } catch (error) {
+    console.error('Failed to start server:', error);
+    process.exit(1);
+  }
+};
+
+startServer();
