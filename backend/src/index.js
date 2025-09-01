@@ -5,6 +5,7 @@ const helmet = require('helmet');
 
 const charactersRouter = require('./routes/characters');
 const chatRouter = require('./routes/chat');
+const validateInviteKey = require('./middleware/inviteAuth');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -20,12 +21,16 @@ app.use(cors({
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true }));
 
-app.use('/api/characters', charactersRouter);
-app.use('/api/chat', chatRouter);
-
+// Health check endpoint (before auth middleware)
 app.get('/api/health', (req, res) => {
   res.json({ status: 'healthy', timestamp: new Date().toISOString() });
 });
+
+// Apply invite key validation to all other API routes
+app.use('/api', validateInviteKey);
+
+app.use('/api/characters', charactersRouter);
+app.use('/api/chat', chatRouter);
 
 app.use((err, req, res, next) => {
   console.error('Error:', err);

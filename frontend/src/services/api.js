@@ -7,10 +7,30 @@ const api = axios.create({
   timeout: 30000,
 });
 
+// Add invite key to all requests
+api.interceptors.request.use(
+  (config) => {
+    const inviteKey = localStorage.getItem('wiki-rpg-invite-key');
+    if (inviteKey) {
+      config.headers['x-invite-key'] = inviteKey;
+    }
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
+
 api.interceptors.response.use(
   (response) => response,
   (error) => {
     console.error('API Error:', error);
+    // If we get a 401, the invite key might be invalid
+    if (error.response?.status === 401) {
+      localStorage.removeItem('wiki-rpg-invite-key');
+      // Reload to trigger the invite key gate
+      window.location.reload();
+    }
     return Promise.reject(error);
   }
 );

@@ -46,7 +46,18 @@ CREATE TABLE character_interactions (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+-- Invite keys table (temporary access control)
+CREATE TABLE invite_keys (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    key_value VARCHAR(50) UNIQUE NOT NULL,
+    is_active BOOLEAN DEFAULT true,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    used_count INTEGER DEFAULT 0
+);
+
 -- Indexes for performance
 CREATE INDEX idx_characters_wikipedia_url ON characters(wikipedia_url);
 CREATE INDEX idx_chat_messages_session_id ON chat_messages(session_id);
 CREATE INDEX idx_chat_sessions_character_id ON chat_sessions(character_id);
+CREATE INDEX idx_invite_keys_key_value ON invite_keys(key_value);
+CREATE INDEX idx_invite_keys_active ON invite_keys(is_active);

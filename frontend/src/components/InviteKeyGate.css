@@ -1,0 +1,125 @@
+.invite-gate-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.invite-gate-card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  padding: 40px;
+  width: 100%;
+  max-width: 500px;
+  text-align: center;
+}
+
+.invite-gate-header h1 {
+  margin: 0 0 10px 0;
+  font-size: 2.5em;
+  color: #333;
+}
+
+.invite-gate-header h2 {
+  margin: 0 0 20px 0;
+  font-size: 1.8em;
+  color: #666;
+  font-weight: 300;
+}
+
+.invite-gate-header p {
+  margin: 0 0 30px 0;
+  color: #777;
+  line-height: 1.5;
+}
+
+.invite-gate-form {
+  margin-bottom: 30px;
+}
+
+.input-group {
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.input-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #333;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 12px 16px;
+  border: 2px solid #e1e5e9;
+  border-radius: 8px;
+  font-size: 16px;
+  transition: border-color 0.2s ease;
+  box-sizing: border-box;
+  font-family: monospace;
+  letter-spacing: 1px;
+}
+
+.input-group input:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.input-group input.error {
+  border-color: #e74c3c;
+}
+
+.input-group input::placeholder {
+  color: #aaa;
+  letter-spacing: normal;
+  font-family: inherit;
+}
+
+.error-message {
+  background: #fee;
+  color: #c92a2a;
+  padding: 12px;
+  border-radius: 6px;
+  margin-bottom: 20px;
+  border: 1px solid #fcc;
+}
+
+.submit-button {
+  width: 100%;
+  padding: 14px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.submit-button:hover:not(:disabled) {
+  opacity: 0.9;
+}
+
+.submit-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.invite-gate-footer {
+  border-top: 1px solid #eee;
+  padding-top: 20px;
+  margin-top: 20px;
+}
+
+.invite-gate-footer p {
+  color: #888;
+  font-size: 0.9em;
+  margin: 0;
+}
