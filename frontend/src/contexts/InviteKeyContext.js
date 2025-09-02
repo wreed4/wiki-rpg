@@ -29,7 +29,7 @@ export const InviteKeyProvider = ({ children }) => {
     console.log('API_URL:', process.env.REACT_APP_API_URL);
     setIsValidating(true);
     try {
-      const response = await fetch(`${process.env.REACT_APP_API_URL || 'http://localhost:3001'}/api/health`, {
+      const response = await fetch(`${process.env.REACT_APP_API_URL || 'http://localhost:3001'}/api/validate-invite`, {
         headers: {
           'x-invite-key': key,
         },

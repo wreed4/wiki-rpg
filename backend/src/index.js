@@ -30,6 +30,11 @@ app.get('/api/health', (req, res) => {
 // Apply invite key validation to all other API routes
 app.use('/api', validateInviteKey);
 
+// Invite key validation endpoint (after auth middleware)
+app.get('/api/validate-invite', (req, res) => {
+  res.json({ valid: true, timestamp: new Date().toISOString() });
+});
+
 app.use('/api/characters', charactersRouter);
 app.use('/api/chat', chatRouter);
 
