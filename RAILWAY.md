@@ -48,12 +48,25 @@ After both services are deployed:
 ### Frontend
 - `REACT_APP_API_URL` - Backend Railway URL
 
+## Important Notes
+
+### Frontend Production Build
+The frontend now uses a production build served with `serve` instead of the development server. This provides:
+- Better performance
+- Proper static file serving
+- Production optimizations
+
+### Port Configuration
+- Frontend: Uses Railway's `PORT` environment variable or defaults to 3000
+- Backend: Uses `PORT` environment variable or defaults to 3001
+
 ## Troubleshooting
 
 ### 502 Bad Gateway
 - Ensure frontend is listening on `0.0.0.0` (fixed in Dockerfile)
 - Verify `REACT_APP_API_URL` points to correct backend URL
 - Check backend service is running and accessible
+- Frontend now serves production build instead of development server
 
 ### CORS Issues
 - Ensure `FRONTEND_URL` is set in backend environment

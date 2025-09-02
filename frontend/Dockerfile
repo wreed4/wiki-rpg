@@ -7,8 +7,13 @@ RUN npm install
 
 COPY . .
 
+# Build the app for production
+RUN npm run build
+
+# Install serve to serve the production build
+RUN npm install -g serve
+
 EXPOSE 3000
 
-ENV HOST=0.0.0.0
-
-CMD ["npm", "start"]
+# Use PORT env var if provided (Railway), otherwise default to 3000
+CMD ["sh", "-c", "serve -s build -l ${PORT:-3000} --host 0.0.0.0"]
