@@ -15,5 +15,5 @@ RUN npm install -g serve
 
 EXPOSE 3000
 
-# Use PORT env var if provided (Railway), otherwise default to 3000
-CMD ["sh", "-c", "serve -s build -l ${PORT:-3000} --host 0.0.0.0"]
+# serve defaults to 0.0.0.0:3000, -s flag rewrites 404s to index.html for React Router
+CMD ["sh", "-c", "serve -s build -l tcp://0.0.0.0:3000"]
