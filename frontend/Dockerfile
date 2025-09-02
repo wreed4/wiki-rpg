@@ -4,8 +4,13 @@ WORKDIR /app
 
 COPY package*.json ./
 RUN npm install
+ARG REACT_APP_API_URL
 
 COPY . .
+
+# Debug: Show environment variables during build
+RUN echo "REACT_APP_API_URL during build: $REACT_APP_API_URL"
+RUN env | grep REACT_APP || echo "No REACT_APP vars found"
 
 # Build the app for production
 RUN npm run build
