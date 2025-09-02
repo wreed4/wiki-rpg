@@ -16,7 +16,7 @@ app.use(helmet({
 }));
 app.use(cors({
   origin: process.env.NODE_ENV === 'production' 
-    ? ['https://your-domain.com'] 
+    ? (process.env.FRONTEND_URL || true) // Allow Railway's dynamic URLs or any origin in production
     : ['http://localhost:3000']
 }));
 app.use(express.json({ limit: '10mb' }));

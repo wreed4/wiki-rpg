@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { charactersAPI, chatAPI } from '../services/api';
+import { charactersAPI, chatAPI, API_URL } from '../services/api';
 
 const CharacterDetailPage = () => {
   const { id } = useParams();
@@ -99,8 +99,8 @@ const CharacterDetailPage = () => {
               character.image_url 
                 ? (character.image_url.startsWith('data:') 
                     ? character.image_url // Base64 data URL from Imagen
-                    : `http://localhost:3001${character.image_url}`) // Relative URL for placeholders
-                : `http://localhost:3001/api/characters/placeholder-avatar/${encodeURIComponent(character.name)}`
+                    : `${API_URL}${character.image_url}`) // Relative URL for placeholders
+                : `${API_URL}/api/characters/placeholder-avatar/${encodeURIComponent(character.name)}`
             }
             alt={character.name}
             style={{
@@ -111,7 +111,7 @@ const CharacterDetailPage = () => {
               border: '4px solid #667eea'
             }}
             onError={(e) => {
-              e.target.src = `http://localhost:3001/api/characters/placeholder-avatar/${encodeURIComponent(character.name)}`;
+              e.target.src = `${API_URL}/api/characters/placeholder-avatar/${encodeURIComponent(character.name)}`;
             }}
           />
           

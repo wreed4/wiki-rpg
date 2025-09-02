@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { charactersAPI } from '../services/api';
+import { charactersAPI, API_URL } from '../services/api';
 
 const CharacterListPage = () => {
   const [characters, setCharacters] = useState([]);
@@ -88,7 +88,7 @@ const CharacterListPage = () => {
                 alt={character.name}
                 className="character-avatar"
                 onError={(e) => {
-                  e.target.src = `http://localhost:3001/api/characters/placeholder-avatar/${encodeURIComponent(character.name)}`;
+                  e.target.src = `${API_URL}/api/characters/placeholder-avatar/${encodeURIComponent(character.name)}`;
                 }}
               />
               

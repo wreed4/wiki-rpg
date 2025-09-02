@@ -2,6 +2,9 @@ import axios from 'axios';
 
 const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:3001';
 
+// Export API_URL so other components can use it for direct URL construction
+export { API_URL };
+
 const api = axios.create({
   baseURL: API_URL,
   timeout: 30000,
