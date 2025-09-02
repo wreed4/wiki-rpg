@@ -26,6 +26,7 @@ export const InviteKeyProvider = ({ children }) => {
   const validateKey = async (key) => {
     if (!key) return false;
 
+    console.log('API_URL:', process.env.REACT_APP_API_URL);
     setIsValidating(true);
     try {
       const response = await fetch(`${process.env.REACT_APP_API_URL || 'http://localhost:3001'}/api/health`, {
